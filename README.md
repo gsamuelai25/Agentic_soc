@@ -14,18 +14,100 @@ This repository orchestrates a completely localized, containerized **SIEM (Wazuh
 
 ---
 
-## 🏗️ Architectural Topology
-The environment initializes a multi-container stack orchestrated via Docker Compose over an isolated network abstraction layer named `SockNet`.
-[ Host Ubuntu Workspace ]
-                            |
-      +---------------------+---------------------+
-      | (SIEM / XDR Aggregator Tier)              | (Orchestration Tier)
-      |                                           |
-[SockNet Bridge]                            [SockNet Bridge]
-      |                                           |
-+-----+-----+-----------------------+             |
-|           |                       |             |
-[Indexer]   [Manager]   [Web Dashboard] |          [n8n Engine]
-(Port 9200) (Telemetry)   (Port 443)    |          (Port 5678)
-|
-[Local Endpoint Agent]
+# 🏗️ Architectural Topology
+
+The platform is deployed as a containerized security monitoring stack orchestrated through Docker Compose and interconnected via an isolated virtual network named **SockNet**.
+
+```text
+┌─────────────────────────────────────────────────────────────┐
+│                   Host Ubuntu Workspace                     │
+└───────────────────────┬─────────────────────────────────────┘
+                        │
+                        ▼
+              ┌───────────────────┐
+              │   SockNet Bridge  │
+              │ (Isolated Network)│
+              └─────────┬─────────┘
+                        │
+        ┌───────────────┴────────────────┐
+        │                                │
+        ▼                                ▼
+
+┌─────────────────────┐      ┌─────────────────────┐
+│ SIEM / XDR Tier     │      │ Orchestration Tier  │
+└─────────┬───────────┘      └─────────┬───────────┘
+          │                            │
+          │                            ▼
+          │                  ┌─────────────────────┐
+          │                  │      n8n Engine     │
+          │                  │     Port : 5678     │
+          │                  └─────────────────────┘
+          │
+          ├───────────────────────────────────────────┐
+          │                                           │
+          ▼                                           ▼
+
+┌─────────────────┐                       ┌─────────────────┐
+│     Indexer     │                       │  Web Dashboard  │
+│   Port : 9200   │                       │   Port : 443    │
+└─────────────────┘                       └─────────────────┘
+
+          │
+          ▼
+
+┌─────────────────┐
+│     Manager     │
+│ Telemetry Core  │
+└─────────────────┘
+
+          │
+          ▼
+
+┌─────────────────┐
+│ Local Endpoint  │
+│      Agent      │
+└─────────────────┘
+```
+
+## Component Overview
+
+| Component                | Purpose                                                                   |
+| ------------------------ | ------------------------------------------------------------------------- |
+| **SockNet**              | Internal isolated Docker network enabling secure container communication. |
+| **Indexer**              | Stores and indexes security events, telemetry, and detection data.        |
+| **Manager**              | Central analysis and correlation engine responsible for event processing. |
+| **Web Dashboard**        | Administrative interface for monitoring, visualization, and management.   |
+| **n8n Engine**           | Workflow orchestration platform used for automation and response actions. |
+| **Local Endpoint Agent** | Collects endpoint telemetry and forwards data to the Manager.             |
+
+## Data Flow
+
+```text
+Endpoint Agent
+      │
+      ▼
+   Manager
+      │
+      ▼
+   Indexer
+      │
+      ▼
+Web Dashboard
+
+Manager ─────────► n8n Engine
+                     │
+                     ▼
+            Automated Actions
+```
+
+## Network Design Principles
+
+* Segmented architecture using an isolated Docker network (**SockNet**).
+* Separation between monitoring infrastructure and automation services.
+* Centralized telemetry ingestion through the Manager component.
+* Secure web-based administration via the Dashboard.
+* Extensible workflow automation through n8n integrations.
+* Containerized deployment for portability and simplified operations.
+
+```
+```
