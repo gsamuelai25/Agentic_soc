@@ -137,5 +137,5 @@ sudo chmod +x install-docker.sh
 
 # Verify the localized Docker daemon status and version
 docker --version
----
+
 
