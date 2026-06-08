@@ -125,7 +125,7 @@ cd Agentic_soc
 ```
 
 ### Phase 2: Docker Engine Provisioning
-
+```
 If your Ubuntu distribution lacks container runtimes, initialize the installation sequence using the pre-configured deployment script:
 
 Bash
@@ -138,4 +138,4 @@ sudo chmod +x install-docker.sh
 # Verify the localized Docker daemon status and version
 docker --version
 
-
+```
