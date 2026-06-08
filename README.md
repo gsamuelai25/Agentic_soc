@@ -105,7 +105,7 @@ Before executing the initialization scripts, verify your workspace fulfills the 
 
 ---
 
-## 🚀 Step-by-Step Deployment Guide
+##  Step-by-Step Deployment Guide
 
 ### Phase 1: Repository Ingestion & Tooling Provision
 Clone the configuration trees directly onto your desktop workspace and update your local access control policies.
@@ -121,6 +121,7 @@ sudo apt install git -y
 git clone [https://github.com/gsamuelai25/Agentic_soc.git](https://github.com/gsamuelai25/Agentic_soc.git)
 cd Agentic_soc
 ---
+
 ### Phase 2: Docker Engine Provisioning
 
 If your Ubuntu distribution lacks container runtimes, initialize the installation sequence using the pre-configured deployment script:
@@ -134,3 +135,5 @@ sudo chmod +x install-docker.sh
 
 # Verify the localized Docker daemon status and version
 docker --version
+---
+
