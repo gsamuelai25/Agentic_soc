@@ -139,7 +139,9 @@ sudo chmod +x install-docker.sh
 docker --version
 
 ```
-Phase 3: Cluster Orchestration
+
+### Phase 3: Cluster Orchestration
+```
 Spin up the isolated container topology. This configures the virtual endpoints, network masks, and mounts stateful data volumes automatically.
 
 Bash
@@ -151,3 +153,4 @@ To monitor verification parameters and ensure all four application nodes are exp
 
 Bash
 sudo docker ps
+```
