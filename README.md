@@ -120,7 +120,7 @@ sudo apt install git -y
 # Clone the authoritative sandbox orchestration tree
 git clone [https://github.com/gsamuelai25/Agentic_soc.git](https://github.com/gsamuelai25/Agentic_soc.git)
 cd Agentic_soc
-'''
+---
 ### Phase 2: Docker Engine Provisioning
 
 If your Ubuntu distribution lacks container runtimes, initialize the installation sequence using the pre-configured deployment script:
