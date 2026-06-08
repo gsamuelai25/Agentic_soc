@@ -139,3 +139,15 @@ sudo chmod +x install-docker.sh
 docker --version
 
 ```
+Phase 3: Cluster Orchestration
+Spin up the isolated container topology. This configures the virtual endpoints, network masks, and mounts stateful data volumes automatically.
+
+Bash
+# Execute the microservices stack cluster launch
+sudo ./docker-spinup.sh
+Note: The initial setup may require several minutes to securely download images and establish cryptographic keys for the elastic modules.
+
+To monitor verification parameters and ensure all four application nodes are explicitly healthy, run:
+
+Bash
+sudo docker ps
