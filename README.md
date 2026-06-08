@@ -69,16 +69,6 @@ The platform is deployed as a containerized security monitoring stack orchestrat
 └─────────────────┘
 ```
 
-## Component Overview
-
-| Component                | Purpose                                                                   |
-| ------------------------ | ------------------------------------------------------------------------- |
-| **SockNet**              | Internal isolated Docker network enabling secure container communication. |
-| **Indexer**              | Stores and indexes security events, telemetry, and detection data.        |
-| **Manager**              | Central analysis and correlation engine responsible for event processing. |
-| **Web Dashboard**        | Administrative interface for monitoring, visualization, and management.   |
-| **n8n Engine**           | Workflow orchestration platform used for automation and response actions. |
-| **Local Endpoint Agent** | Collects endpoint telemetry and forwards data to the Manager.             |
 
 ## Data Flow
 
@@ -100,14 +90,33 @@ Manager ─────────► n8n Engine
             Automated Actions
 ```
 
-## Network Design Principles
+1. **Wazuh Indexer (Port 9200):** Optimized analytics engine that indexes, structures, and archives highly granular cryptographic security alerts. The LLM interacts directly with this endpoint for data lookup.
+2. **Wazuh Manager:** The centralized behavioral engine. It aggregates logs, monitors structural rootkits, maps baseline compliance, and evaluates system event triggers.
+3. **Wazuh Dashboard (Port 443):** Enterprise UI web panel mapping unified trends, risk profiles, and historical anomalies.
+4. **n8n Automation Engine (Port 5678):** The foundational runtime for our Agentic AI workflow. Acting as the system maestro, it couples incoming SIEM webhooks to localized or cloud-based Large Language Models (LLMs).
 
-* Segmented architecture using an isolated Docker network (**SockNet**).
-* Separation between monitoring infrastructure and automation services.
-* Centralized telemetry ingestion through the Manager component.
-* Secure web-based administration via the Dashboard.
-* Extensible workflow automation through n8n integrations.
-* Containerized deployment for portability and simplified operations.
+---
 
-```
-```
+## ⚙️ System Requirements & Prerequisites
+Before executing the initialization scripts, verify your workspace fulfills the following structural baselines:
+* **Operating System:** Ubuntu Linux Virtual Machine (Bare-metal installation, VMware Workstation, or VirtualBox recommended).
+* **Hardware Allocations:** Minimum **8 GB RAM** (16 GB Recommended) and **4 vCPUs** to sustain elastic JVM heap sizes utilized by the indexer.
+* **Terminal Shell:** Fully updated system packages with standard utilities (`curl`, `wget`).
+
+---
+
+## 🚀 Step-by-Step Deployment Guide
+
+### Phase 1: Repository Ingestion & Tooling Provision
+Clone the configuration trees directly onto your desktop workspace and update your local access control policies.
+
+```bash
+# Update localized apt cache mirrors
+sudo apt update && sudo apt upgrade -y
+
+# Install Git version control if missing
+sudo apt install git -y
+
+# Clone the authoritative sandbox orchestration tree
+git clone [https://github.com/gsamuelai25/Agentic_soc.git](https://github.com/gsamuelai25/Agentic_soc.git)
+cd Agentic_soc
