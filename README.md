@@ -156,19 +156,20 @@ sudo docker ps
 ```
 
 
-Post-Installation Infrastructure Walkthrough
+### Post-Installation Infrastructure Walkthrough
+```
 1. Accessing the Wazuh Enterprise Console
 Endpoint URL: https://localhost (Accept the self-signed SSL certificate warning within your browser to bypass local domain restriction policies).
 
 Default Administrative Username: admin
 
 Default Administrative Password: SecretPassword
-
+```
 ⚠️ Production Security Notice: These credentials are hardcoded strictly for local sandbox isolation testing. In enterprise staging or production pipelines, generate unique hashes within your docker-compose.yml manifest prior to initialization.
 
 2. Localhost Endpoint Security Agent Deployment
 To generate real security signals for your Agentic workflows to evaluate, configure the host machine as a telemetry source:
-
+```
 Navigate to the Wazuh Web UI and click "Deploy new agent".
 
 Select Linux Debian/Ubuntu 64-bit as your target infrastructure.
@@ -178,14 +179,15 @@ Assign the loopback address target (127.0.0.1) and name the machine profile Ubun
 Copy the auto-generated command terminal output string, return to your command line interface, and execute it using sudo contexts.
 
 Launch the daemon interface locally to initiate telemetry forwarding:
-
+```
+```
 Bash
    sudo systemctl daemon-reload
    sudo systemctl enable wazuh-agent
    sudo systemctl start wazuh-agent
 3. Configuring the n8n Agentic Workflow Environment
 Endpoint URL: http://localhost:5678
-
+```
 Critical Protocol Note: Use HTTP exclusively. Appending an unsecured S to the port routing configuration string will fail to resolve the service interface under this sandbox topology.
 
 Follow the on-screen configuration wizard to establish your local master administrator account. Once completed, your development canvas is fully unlocked for workflow nodes integration.
